@@ -1,37 +1,17 @@
 'use strict';
 
 const def_pugs_list = [
-    'markdown-it-abbr',
     'markdown-it-anchor',
-    'markdown-it-attrs',
-    'markdown-it-checkbox',
-    'markdown-it-deflist',
-    'markdown-it-emoji',
-    'markdown-it-footnote',
-    'markdown-it-ins',
-    'markdown-it-katex',
-    'markdown-it-mark',
-    'markdown-it-sub',
-    'markdown-it-sup'
+    'markdown-it-attrs'
 ];
 const def_pugs_conf = {
     'markdown-it-anchor': {
-        level: 1,
+        level: 6,
         slugify: string => string,
         permalink: true,
         permalinkClass: 'header-anchor',
         permalinkSymbol: '¶',
         permalinkBefore: true
-    },
-    'markdown-it-checkbox': {
-        divWrap: false,
-        divClass: 'checkbox',
-        idPrefix: 'checkbox'
-    },
-    'markdown-it-katex': {
-        throwOnError: false,
-        errorColor: '#cc0000',
-        csslink: 'https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.6.0/katex.min.css'
     }
 };
 const def_main_conf = {
@@ -61,9 +41,6 @@ let renderer = function (data, options) {
                 pugs_opt[item].endsWith('}')) {
                 pugs_opt[item] = eval('(' + pugs_opt[item] + ')');
             }
-        }
-        if (pugs === 'markdown-it-katex') {
-            data.text += `\n\n<link rel="stylesheet" href="${pugs_opt.csslink}">`;
         }
         if (pugs_opt._parser) {
             return eval('(' + pugs_opt._parser + ')');
